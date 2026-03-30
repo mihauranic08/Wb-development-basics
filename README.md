@@ -1,292 +1,265 @@
 # WB Development Basics
 
-Comprehensive documentation for the sample project in `wbSample00`.
+Podrobna dokumentacija za učni projekt v mapi `wbSample00`.
 
-## Project Overview
+## Pregled projekta
 
-`wbSample00` is a front-end educational project that demonstrates core web development concepts using plain HTML, CSS, and JavaScript (no frameworks, no build tools).
+`wbSample00` je front-end učni primer, ki prikazuje osnove spletnega razvoja z uporabo čistega HTML, CSS in JavaScript (brez ogrodij in brez build postopka).
 
-The site represents a small library webpage (in Slovenian language) with:
+Stran predstavlja knjižnico in vključuje:
 
-- Structured content sections
-- Responsive layout
-- Interactive menu
-- Search and text highlighting
-- Dynamically generated data table
-- Form validation
-- Accessibility-focused high-contrast mode
-- Scroll-to-top behavior
+- semantično strukturo vsebine
+- odziven prikaz na različnih velikostih zaslona
+- spustni meni za navigacijo
+- iskanje in poudarjanje zadetkov
+- tabelarični prikaz COBISS podatkov
+- razvrščanje tabele po stolpcih
+- naključno priporočilo knjige
+- TOP 10 kartice najbolj izposojanih knjig
+- TOP 15 horizontalni graf izposoj
+- validacijo kontaktnega obrazca
+- visokokontrastni način z zapomnitvijo nastavitve
+- gumb za skok na vrh strani
 
-This repository is intended for learning and practice in:
+Projekt je namenjen učenju:
 
-- Semantic HTML page structure
-- CSS styling and responsive design
-- DOM manipulation
-- Event handling
-- Working with local data in JavaScript
-- Basic UX and accessibility improvements
+- semantičnega HTML označevanja
+- CSS postavitve in komponentnega stiliranja
+- dela z DOM API-jem
+- obdelave dogodkov (click, submit, scroll)
+- renderiranja podatkov iz JavaScript seznama
+- osnov UX in dostopnosti
 
-## Project Structure
+## Struktura projekta
 
-```
+```text
 Wb-development-basics/
 ├─ README.md
 ├─ referencni_prirocnik.pdf
 └─ wbSample00/
-	 ├─ index.html
-	 ├─ styles.css
-	 ├─ script.js
-	 ├─ cobiss.js
-	 └─ knjiznica.js
+   ├─ index.html
+   ├─ styles.css
+   ├─ script.js
+   ├─ cobiss.js
+   └─ knjiznica.js
 ```
 
-## File-by-File Explanation
+## Razlaga datotek
 
 ### `wbSample00/index.html`
 
-Main page and semantic structure of the application.
+Glavna stran in semantična osnova aplikacije.
 
-Includes:
+Vsebuje:
 
-- Dropdown navigation menu
-- Search area (`Išči` button + high-contrast toggle)
-- Content sections (categories, links, static book list, rules, contact)
-- COBISS-based most borrowed books table (`#cobissTable`)
-- Recommendation button (`#recommendBtn`)
-- Contact form with fields for name, email, and message
-- Footer with opening hours and social links
-- Scroll-to-top button (`#topBtn`)
+- navigacijo z menijem (`Meni ▼`)
+- iskalno vrstico (`#searchInput`) in gumb `Išči`
+- gumb `Visok kontrast`
+- vsebinske sekcije (kategorije, povezave, pravila, kontakt)
+- COBISS tabelo (`#cobissTable` z `#cobissBody`)
+- gumb `Priporoči knjigo` in izpis priporočila
+- vsebnik za TOP 10 kartice (`#top10Container`)
+- vsebnik za TOP 15 graf (`#grafikon`)
+- kontaktni obrazec
+- gumb `↑ Na vrh`
 
-Also contains a small inline script for dropdown open/close behavior.
+Na dnu datoteke je tudi inline skripta za odpiranje in zapiranje spustnega menija.
 
 ### `wbSample00/styles.css`
 
-Styles for layout, typography, components, and responsive behavior.
+Datoteka definira videz celotne strani:
 
-Key style areas:
-
-- Global page typography and spacing
-- Card-like section blocks
-- Table styling (headers, zebra rows, hover effect)
-- Dropdown menu styling
-- Form and button styling
-- Search input + button pairing
-- Highlight style for search matches
-- Responsive media queries for tablet/mobile
-- High-contrast mode class (`.high-contrast`)
-- Floating scroll-to-top button styling (`#topBtn`)
+- tipografijo in osnovne razmake
+- kartični izgled sekcij (`.section`)
+- videz tabele in zebra vrstice
+- stil navigacije in menija
+- stile obrazca in gumbov
+- stil označenih iskalnih zadetkov (`.highlight`)
+- stil visokokontrastnega načina (`.high-contrast`)
+- stil gumba `Na vrh` (`#topBtn`)
+- postavitev TOP 10 kartic
+- izgled horizontalnega TOP 15 grafa
+- vizualne oznake za razvrščanje stolpcev (`.sortable`, `.sort-asc`, `.sort-desc`)
 
 ### `wbSample00/cobiss.js`
 
-Contains static dataset:
+Vsebuje podatkovni vir:
 
-- `cobissData`: array of book objects
-- Object shape: `{ descr, author, totalCount }`
-- Represents most borrowed books (source noted in UI as COBISS)
+- globalni seznam `cobissData`
+- vsak element je objekt oblike `{ descr, author, totalCount }`
 
-This file is loaded before scripts that consume the data.
-
-### `wbSample00/knjiznica.js`
-
-Responsible for dynamic rendering of the COBISS table.
-
-Behavior:
-
-- Reads `cobissData`
-- Appends one `<tr>` per book into `#cobissBody`
-- Displays row number, title, author, and borrow count
+Podatki predstavljajo najbolj izposojane knjige.
 
 ### `wbSample00/script.js`
 
-Main interactivity logic.
+Glavna interaktivnost strani.
 
-Implements:
+Implementira:
 
-- Search trigger on `#searchButton`
-- Match highlighting across text elements
-- Highlight cleanup before each new search
-- Automatic scroll to first match
-- Random book recommendation from `cobissData`
-- Contact form validation rules
-- Scroll event handling for top button visibility
-- Smooth scroll to top on click
-- High-contrast mode toggle
-- Persistence of high-contrast preference via `localStorage`
+- iskanje po strani s klikom na `#searchButton`
+- funkcijo `removeHighlights()` za čiščenje starih zadetkov
+- funkcijo `highlightText(searchTerm)` za novo označevanje
+- samodejni skok do prvega zadetka
+- osnovno priporočilo knjige iz `cobissData`
+- validacijo kontaktnega obrazca
+- prikaz/skritje gumba `Na vrh` glede na scroll
+- gladek skok na vrh (`window.scrollTo`)
+- preklop visokega kontrasta
+- shranjevanje in obnovo nastavitve prek `localStorage`
 
-## How to Run
+### `wbSample00/knjiznica.js`
 
-No installation is required.
+Skripta za renderiranje COBISS vsebin po nalaganju DOM-a.
 
-### Option 1 (quick start)
+Vključuje:
 
-1. Open the repository folder in VS Code.
-2. Open `wbSample00/index.html` in a browser.
+- izris tabele iz `cobissData`
+- primerjalno funkcijo za razvrščanje
+- klike na glave stolpcev za menjavo smeri (ASC/DESC)
+- prikaz puščic smeri razvrščanja
+- generiranje TOP 10 kartic
+- generiranje TOP 15 horizontalnega grafa
+- dodatni (bogatejši) prikaz priporočene knjige
 
-### Option 2 (recommended for development)
+Opomba: priporočilo je vezano tako v `script.js` kot tudi v `knjiznica.js`, zato skripta v `knjiznica.js` prepiše prikaz z bolj podrobno vsebino.
 
-Use a local static server (for consistent behavior and easier debugging).
+## Kako zagnati projekt
 
-Examples:
+Namestitev ni potrebna.
 
-- VS Code Live Server extension
-- Any simple static server command
+### Možnost 1: Hiter zagon
 
-## Functional Walkthrough
+1. Odpri mapo repozitorija v VS Code.
+2. Odpri `wbSample00/index.html` v brskalniku.
 
-### 1. Navigation menu
+### Možnost 2: Priporočeno za razvoj
 
-- Click `Meni ▼` to open links.
-- Click outside the menu or on a menu item to close it.
+Za bolj stabilen razvojni potek uporabi statični strežnik (npr. VS Code Live Server).
 
-### 2. Search and highlight
+## Funkcionalni sprehod
 
-- Enter text in the search input.
-- Click `Išči`.
-- Matching text in selected elements is wrapped in `.highlight`.
-- Page scrolls to the first match.
+### 1. Navigacija
 
-### 3. High-contrast mode
+- Klik na `Meni ▼` odpre povezave.
+- Klik izven menija ali na povezavo meni zapre.
 
-- Click `Visok kontrast`.
-- Theme switches by toggling `.high-contrast` on `<body>`.
-- Setting is saved in `localStorage` and restored on reload.
+### 2. Iskanje in poudarjanje
 
-### 4. Dynamic COBISS table
+- Vnesi iskani niz v polje.
+- Klikni `Išči`.
+- Ujemanja se označijo z razredom `.highlight`.
+- Stran se premakne do prvega zadetka.
 
-- Table body starts empty in HTML.
-- `knjiznica.js` injects rows from `cobissData` after load.
+### 3. Visok kontrast
 
-### 5. Recommendation button
+- Klik na `Visok kontrast` preklopi razred `.high-contrast` na `body`.
+- Nastavitev se shrani v `localStorage` in se ob osvežitvi povrne.
 
-- Click `Priporoči knjigo`.
-- Script chooses a random entry from `cobissData`.
-- Selected title and author are shown below the button.
+### 4. COBISS tabela
 
-### 6. Contact form validation
+- Telo tabele je v HTML prazno.
+- `knjiznica.js` ga napolni iz `cobissData`.
+- Klik na naslov stolpca razvrsti podatke.
 
-On submit, browser default submission is prevented if any rule fails:
+### 5. Priporočilo knjige
 
-- Name must contain at least 3 characters
-- Email must not be empty
-- Message must contain at least 10 characters
+- Klik na `Priporoči knjigo` izbere naključno knjigo.
+- V `knjiznica.js` se izpiše naslov, avtor in število izposoj.
 
-### 7. Scroll-to-top button
+### 6. TOP 10 in TOP 15
 
-- Appears after scrolling down the page
-- On click, smooth-scrolls to top
+- TOP 10 se izriše kot mreža barvnih kartic.
+- TOP 15 se izriše kot horizontalni trakovni graf.
 
-## Script Load Order
+### 7. Kontaktni obrazec
 
-At the bottom of `index.html`, scripts are loaded in this order:
+Ob oddaji obrazca se preveri:
 
-1. Inline dropdown script
+- ime mora imeti vsaj 3 znake
+- email ne sme biti prazen
+- sporočilo mora imeti vsaj 10 znakov
+
+Če pogoj ni izpolnjen, se oddaja prekine z `preventDefault()`.
+
+### 8. Gumb Na vrh
+
+- Gumb se pokaže po pomiku strani navzdol.
+- Klik sproži gladek skok na vrh.
+
+## Vrstni red nalaganja skript
+
+V `index.html` so skripte naložene v tem vrstnem redu:
+
+1. inline skripta za meni
 2. `script.js`
 3. `cobiss.js`
 4. `knjiznica.js`
 
-Why this works:
+Zakaj je to pomembno:
 
-- `cobiss.js` defines global `cobissData`
-- `knjiznica.js` runs after and can safely render the table
-- Recommendation handler in `script.js` references `cobissData` when clicked (after all files are loaded)
+- `cobiss.js` definira globalni seznam `cobissData`
+- `knjiznica.js` se naloži kasneje in lahko varno uporablja te podatke
 
-## Technologies Used
+## Uporabljene tehnologije
 
 - HTML5
 - CSS3
 - Vanilla JavaScript (ES6+)
-- Browser APIs:
-	- DOM API
-	- `localStorage`
-	- `scrollIntoView`
-	- `window.scrollTo`
+- Browser API-ji:
+  - DOM API
+  - `localStorage`
+  - `scrollIntoView`
+  - `window.scrollTo`
 
-## Learning Outcomes
+## Učni cilji
 
-After working through this project, you should understand how to:
+Po predelavi projekta razumeš, kako:
 
-- Connect multiple JavaScript files in one page
-- Render data-driven UI from an array of objects
-- Manage UI state with CSS classes
-- Validate user input before form submission
-- Preserve user preferences with browser storage
-- Build a simple responsive and interactive web page without frameworks
+- povezati več JavaScript datotek na eni strani
+- prikazati podatke iz seznama v dinamični tabeli
+- implementirati razvrščanje brez zunanjih knjižnic
+- validirati uporabniški vnos pred oddajo obrazca
+- uporabiti `localStorage` za trajne nastavitve
+- zgraditi odzivno interaktivno stran brez frameworkov
 
-## Notes
+## Razlaga po poglavjih
 
-- The interface text is primarily in Slovenian.
-- The project is suitable for beginner-to-intermediate front-end exercises and classroom demonstrations.
+### Poglavje 1: HTML
 
-## Function Reference by Chapter
+HTML definira strukturo in sidrišča za JavaScript.
 
-This section explains the functional building blocks used in the project, grouped into three chapters.
+- `nav`, `ul`, `li`, `a`: navigacija in povezave
+- `input`, `button`: iskalnik, kontrast, priporočilo
+- `table`, `thead`, `tbody`: ogrodje tabele za dinamični izris
+- `form`, `label`, `textarea`: kontaktni obrazec
+- `id` atributi (`searchButton`, `cobissBody`, `topBtn`, ...): stabilni cilji za DOM selektorje
 
-### Chapter 1: HHTML
+### Poglavje 2: JavaScript
 
-The HTML layer does not define JavaScript functions, but it defines structural and semantic elements that make the application functionality possible.
+Ključne funkcije in handlerji:
 
-- `nav`, `ul`, `li`, `a`: Build the dropdown navigation structure and in-page links.
-- `input`, `button`: Provide search interaction and contrast toggle controls.
-- `table`, `thead`, `tbody`, `tr`, `th`, `td`: Define the static table shell that JavaScript fills with COBISS data.
-- `form`, `label`, `textarea`: Define contact input controls and submission flow.
-- `id` attributes (for example `searchButton`, `cobissBody`, `topBtn`): Serve as stable DOM targets for JavaScript logic.
-- Script tags at the bottom of the page: Ensure DOM elements exist before JavaScript starts binding events.
-- Inline dropdown script in HTML: Handles menu open/close behavior directly in the page.
+- `removeHighlights()` v `script.js`: odstrani stare označene zadetke
+- `highlightText(searchTerm)` v `script.js`: označi nova ujemanja
+- click handler `#searchButton`: zažene iskanje
+- submit handler obrazca: validira vnos in po potrebi prekine oddajo
+- click handler `#contrastBtn`: preklopi visok kontrast in shrani stanje
+- scroll/click handler `#topBtn`: upravlja gumb Na vrh
+- izris in razvrščanje tabele v `knjiznica.js`
+- izris TOP 10 kartic in TOP 15 grafa v `knjiznica.js`
 
-### Chapter 2: JavaScript
+### Poglavje 3: CSS
 
-Below are the functions and callback handlers used across the JavaScript files.
+CSS je razdeljen na funkcionalne sklope stiliranja:
 
-- `removeHighlights()` in `script.js`:
-	- Removes all elements with class `highlight`.
-	- Restores original text nodes and normalizes parent nodes.
-- `highlightText(searchTerm)` in `script.js`:
-	- Scans selected page elements.
-	- Wraps matched text with `span.highlight`.
-	- Scrolls to the first found match.
-- Search button click handler in `script.js`:
-	- Reads the current search input.
-	- Calls `removeHighlights()` and `highlightText(...)` when text is present.
-- Recommendation button click handler in `script.js`:
-	- Chooses a random index from `cobissData` using `Math.random()` and `Math.floor()`.
-	- Prints a recommended title and author.
-- Form submit handler in `script.js`:
-	- Validates name length, email presence, and message length.
-	- Calls `e.preventDefault()` when validation fails.
-- Scroll handler for top button in `script.js`:
-	- Shows `topBtn` after the page is scrolled beyond a threshold.
-- Top button click handler in `script.js`:
-	- Calls `window.scrollTo({ top: 0, behavior: "smooth" })`.
-- Contrast button click handler in `script.js`:
-	- Toggles `high-contrast` class on `body`.
-	- Stores state with `localStorage.setItem(...)`.
-- Contrast restore logic in `script.js`:
-	- Reads persisted value with `localStorage.getItem(...)` and reapplies class.
-- `forEach` render callback in `knjiznica.js`:
-	- Iterates over `cobissData`.
-	- Creates one table row per entry and appends it to `cobissBody`.
-- Dropdown menu click handlers in inline script (`index.html`):
-	- Toggle menu visibility with `classList.toggle("show")`.
-	- Close menu on outside clicks.
-	- Close menu after selecting a link.
+- globalni layout (`body`, `h1`, `h2`, `p`)
+- komponente (`.section`, `button`, `input`, `textarea`, `footer`)
+- tabela (`table`, `#cobissTable`, zebra/hover)
+- meni (`.dropdown-menu`, `.dropdown-content`)
+- iskanje (`.search-container`, `.highlight`)
+- dostopnost (`.high-contrast`)
+- dodatni vizualni bloki (`#top10Container`, `#grafikon`)
 
-### Chapter 3: CSS
+## Opombe
 
-CSS has no executable functions like JavaScript, but it uses selectors and rule blocks that function as styling modules.
-
-- Global layout rules (`body`, `h1`, `h2`, `p`, `ul`, `li`, `ol`):
-	- Control typography, spacing, page width, and baseline readability.
-- Component rules (`.header`, `.section`, `footer`, `button`, `input`, `textarea`):
-	- Create card-like sections, consistent controls, and visual hierarchy.
-- Table styling rules (`table`, `th`, `td`, `tr:nth-child(even)`, `tr:hover`):
-	- Implement readable tabular layout with striping and hover feedback.
-- Dropdown rules (`.dropdown-menu`, `.menu-button`, `.dropdown-content`, `.dropdown-content.show`):
-	- Provide hidden-by-default menu behavior and visible state styling.
-- Search/highlight rules (`.search-container`, `#searchInput`, `#searchButton`, `.highlight`):
-	- Style the search UI and emphasize matched terms.
-- Top button rules (`#topBtn`):
-	- Position floating action button and define visual appearance.
-- High-contrast rules (`.high-contrast`, `.high-contrast a`, `.high-contrast button`):
-	- Apply accessibility-focused alternate color scheme.
-- Responsive media queries (`@media (max-width: 768px)`, `@media (max-width: 480px)`):
-	- Adjust spacing, typography, and table density for smaller screens.
+- Besedilo strani je v slovenščini.
+- Projekt je primeren za začetnike in srednje napredne vaje.
