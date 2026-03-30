@@ -277,3 +277,140 @@ footer a:hover {
     background-color: #fff;
     color: #000;
 }
+
+/* Grafikon TOP 15 */
+#grafikon {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.graf-vrstica {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+
+.graf-oznaka {
+    width: 200px;
+    font-size: 12px;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+.graf-trak-ozadje {
+    flex: 1;
+    background: #ecf0f1;
+    border-radius: 4px;
+    height: 22px;
+    overflow: hidden;
+}
+
+.graf-trak {
+    height: 100%;
+    background: #3498db;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    transition: width 0.8s ease;
+}
+
+/* Prikaz TOP10 */
+#top10Container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.knjiga-kartica {
+    border-radius: 10px;
+    padding: 16px;
+    color: white;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.kartica-rang {
+    font-size: 2.5em;
+    font-weight: bold;
+    opacity: 0.3;
+    position: absolute;
+    top: 8px;
+    right: 12px;
+}
+
+.kartica-naslov {
+    font-weight: bold;
+}
+
+.kartica-stevilo {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* razred sortable za razvrscanje po stolpcih tabele cobissTable */
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable:hover {
+    background-color: #1a252f;
+}
+
+.sort-asc::after {
+    content: " ▲";
+}
+
+.sort-desc::after {
+    content: " ▼";
+}
+
+/* Stil tabele cobissTable */
+#cobissTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#cobissTable th {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+}
+
+#cobissTable td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Zebra vzorec */
+#cobissTable tbody tr:nth-child(even) {
+    background-color: #f2f6fc;
+}
+
+/* Hover efekt */
+#cobissTable tbody tr:hover {
+    background-color: #d6eaf8;
+    cursor: pointer;
+}
+
+/* Stolpec z izposojami - desno poravnan */
+#cobissTable td:last-child,
+#cobissTable th:last-child {
+    text-align: right;
+    font-weight: bold;
+    color: #2980b9;
+}
