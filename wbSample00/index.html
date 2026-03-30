@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Knjižnica</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav class="dropdown-menu">
+        <div class="menu-button">Meni ▼</div>
+        <ul class="dropdown-content">
+            <li><a href="index.html">Domov</a></li>
+            <li><a href="#kategorije">Kategorije</a></li>
+            <li><a href="#seznam">Seznam knjig</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Išči po strani...">
+        <button id="searchButton">Išči</button>
+        <button id="contrastBtn">Visok kontrast</button>
+    </div>
+
+    <h1 class="header">Dobrodošli v naši knjižnici</h1>
+    <p>Tu boste našli vse informacije o naših knjigah in storitvah</p>
+
+    <div class="section" id="kategorije">
+        <h2>Kategorije knjig</h2>
+        <ul>
+            <li>Roman</li>
+            <li>Znanstvena literatura</li>
+            <li>Otroške knjige</li>
+            <li>Biografije</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Pomembne povezave</h2>
+        <a href="index.html">Domov</a><br>
+        <a href="kontakt.html">Kontakt</a><br>
+        <a href="https://www.knjiznica.si" target="_blank">Uradna stran knjižnice</a>
+    </div>
+
+    <div class="section" id="seznam">
+        <h2>Seznam knjig</h2>
+        <table>
+            <tr>
+                <th>Naslov</th>
+                <th>Avtor</th>
+                <th>Leto</th>
+            </tr>
+            <tr>
+                <td>Na klancu</td>
+                <td>Ivan Cankar</td>
+                <td>1902</td>
+            </tr>
+            <tr>
+                <td>Martin Krpan</td>
+                <td>Fran Levstik</td>
+                <td>1858</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Najpogosteje izposojene knjige</h2>
+        <p>Vir: COBISS, februar 2026</p> <!-- NOVO: Vaja 26 - začetek-->
+        <table id="cobissTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Naslov</th>
+                    <th>Avtor</th>
+                    <th>Izposoje</th>
+                </tr>
+            </thead>
+            <tbody id="cobissBody"><!-- JS bo vstavil vrstice -->
+            </tbody>
+        </table> <!-- NOVO: Vaja 26 - konec-->
+        <button id="recommendBtn">Priporoči knjigo</button>
+        <p id="recommendation"></p>
+    </div>
+
+    <div class="section">
+        <h2>Pravila knjižnice</h2>
+        <ol>
+            <li>Vračilo knjig v roku 14 dni.</li>
+            <li>Tišina v bralnem prostoru.</li>
+            <li>Uporaba računalnikov samo za študijske namene.</li>
+        </ol>
+    </div>
+
+    <div class="section" id="kontakt">
+        <h2>Kontaktirajte nas</h2>
+        <form>
+            <label for="name">Ime:</label><br>
+            <input type="text" id="name" name="name" placeholder="Vaše ime"><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" placeholder="Vaš email"><br><br>
+            <label for="message">Sporočilo:</label><br>
+            <textarea id="message" name="message" rows="5" placeholder="Vaše sporočilo"></textarea><br><br>
+            <button type="submit">Pošlji</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2024 Knjižnica. Vse pravice pridržane.</p>
+        <p>Odpiralni čas: Pon-Pet 9:00-20:00, Sob 9:00-14:00</p>
+        <p>
+            <a href="#">Facebook</a> |
+            <a href="#">Twitter</a> |
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+
+    <button id="topBtn">↑ Na vrh</button>
+
+    <script>
+        const menuButton = document.querySelector('.menu-button');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        menuButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            dropdownContent.classList.toggle('show');
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!dropdownContent.contains(event.target) && !menuButton.contains(event.target)) {
+                dropdownContent.classList.remove('show');
+            }
+        });
+
+        document.querySelectorAll('.dropdown-content a').forEach(link => {
+            link.addEventListener('click', () => {
+                dropdownContent.classList.remove('show');
+            });
+        });
+    </script>
+
+    <script src="script.js"></script>
+    <script src="cobiss.js"></script>
+    <script src="knjiznica.js"></script>
+</body>
+</html>
