@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Knjižnica</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knjižnica Martina Krpana</title>
+    <meta name="description"
+    content="Spletna stran Knjižnice Martina Krpana —
+    katalog knjig, urniki in kontaktni podatki.">
+</head>
+<body>
+    <nav class="dropdown-menu" aria-label="Glavna navigacija"> <!-- NOVO -->
+    <!-- NOVO --> <button class="menu-button"
+        aria-expanded="false"
+        aria-controls="dropdown-list"> <!-- NOVO -->
+        Meni
+    </button>
+    <div class="search-container"> <!-- NESPREMENJENO-->
+        <label for="searchInput" class="visually-hidden"></label>
+        <input type="search" id="searchInput" placeholder="Išči po strani...">
+        <button id="searchButton">Išči</button>
+        <p id="searchStatus"
+            aria-live="polite"
+            class="visually-hidden">
+        </p>
+        <button id="contrastBtn">Visok kontrast</button>
+    </div>
+    <ul id="dropdown-list" class="dropdown-content" role="list">                <!-- NOVO -->
+        <li><a href="index.html">Domov</a></li>
+        <li><a href="#novice">Novice</a></li>
+        <li><a href="#kategorije">Kategorije</a></li>
+        <li><a href="#seznam">Seznam knjig</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+</nav>
+
+    <h1 class="header">Dobrodošli v naši knjižnici</h1>
+    <p id="uvod">Tu boste našli vse informacije o naših knjigah in storitvah.</p>
+    <button id="gumbRazsiri"
+onclick="toggleBesedilo()"
+aria-expanded="false"               
+aria-controls="razsiritevBesedila"> <!-- NOVO -->
+Preberi več ▼
+</button>
+</div>
+<div id="razsiritevBesedila" hidden>                          
+    <p>Naša knjižnica ponuja tudi posebne programe za ranljive skupine:
+    bralne ure za starejše, tečaj digitalnih veščin za upokojence ter
+    prilagojene dejavnosti za otroke s posebnimi potrebami.</p>
+    <p>Knjižnični katalog je dostopen prek sistema COBISS+. Letna
+    včlanitev stane le 15 EUR za odrasle in je brezplačna za otroke.</p>
+</div>
+<!-- Dodajte v index.html, za zaključnim </div> elementa razsiritevBesedila -->
+<section id="novice" class="section">
+    <h2>Novice</h2>
+    <div class="karusel"
+    role="region"
+    aria-label="Novice">
+<!-- Gumb: prejšnja novica -->
+ <button class="karusel-gumb karusel-gumb--levo"
+ id="karuselPrej"
+ aria-label="Prejšnja novica">
+‹
+</button>
+<!-- Vsebnik za diapozitive -->
+<div class="karusel-okno">
+    <ul class="karusel-seznam"
+    id="karuselSeznam"
+    aria-live="polite">
+</ul>
+</div>
+<!-- Gumb: naslednja novica -->
+<button class="karusel-gumb karusel-gumb--desno"
+id="karuselNasl"
+aria-label="Naslednja novica">
+›
+</button>
+<!-- Indikatorji (pike) -->
+<div class="karusel-pike"
+id="karuselPike"
+role="tablist"
+aria-label="Izbira novice">
+</div>
+
+</div>
+</section>
+
+    <div class="section" id="kategorije">
+        <h2>Kategorije knjig</h2>
+        <div class="video-vsebnik">
+        <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/jYlRjOC4O6I"
+            title="Knjižnice — YouTube video"
+            allow="accelerometer; autoplay; clipboard-write;
+            encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+</div>
+        <ul>
+            <li>Roman</li>
+            <li>Znanstvena literatura</li>
+            <li>Otroške knjige</li>
+            <li>Biografije</li>
+        </ul>
+    <canvas id="kategorijeCanvas"
+        width="500" height="260"
+        aria-label="Stolpični grafikon kategorij knjig"
+        role="img">
+    </canvas>
+    </div>
+
+    <div class="section">
+        <h2>Pomembne povezave</h2>
+        <a href="index.html">Domov</a><br>
+        <a href="kontakt.html">Kontakt</a><br>
+        <a href="https://www.knjiznica.si" target="_blank">Uradna stran knjižnice</a><br>
+        <a href="https://www.google.com/maps/@46.0511,14.5046,17z"target="_blank" rel="noopener noreferrer">Odpri lokacijo na zemljevidu (koordinate)</a>
+    </div>
+
+    <div class="section" id="seznam">
+    <h2>Najpogosteje izposojene knjige</h2>
+    <p>Vir: COBISS, februar 2026</p>
+    <div style="overflow-x: auto;">
+      <table id="cobissTable" aria-describedby="cobissOpis">
+        <caption>Najpogosteje izposojene knjige, vir: COBISS, februar 2026</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="sortable" data-col="descr" aria-sort="none" tabindex="0">Naslov</th>
+            <th scope="col" class="sortable" data-col="author" aria-sort="none" tabindex="0">Avtor</th>
+            <th scope="col" class="sortable" data-col="totalCount" aria-sort="none" tabindex="0">Število izposoj</th>
+          </tr>
+        </thead>
+        <tbody id="cobissBody">
+          <!-- JS bo vstavil vrstice -->
+        </tbody>
+      </table>
+    </div>
+    <p id="cobissOpis" class="visually-hidden">
+        Tabela prikazuje 100 najpogosteje izposojenih knjig.
+        Stolpce je mogoče razvrstiti s klikom ali tipko Enter.
+    </p>
+    
+    <button id="recommendBtn">Priporoči knjigo</button>
+    <p id="recommendation"
+        aria-live="polite"    
+        aria-atomic="true">  
+    </p>
+</div>
+    
+    <div id="top10Container"></div>
+    <h3>TOP 15 - število izposoj</h3>
+    <div id="grafikon"></div>
+
+    <div class="section">
+        <h2>Pravila knjižnice</h2>
+        <svg xmlns="http://www.w3.org/2000/svg"
+        width="80" height="72"
+        viewBox="0 0 120 110"
+        aria-label="Opozorilni znak"
+        role="img">
+<!-- Trikotnik -->
+<polygon points="60,10 110,95 10,95" fill="#2E6DA4">
+    <animate
+    attributeName="opacity"
+    values="1;0.4;1"
+    dur="2s"
+    repeatCount="indefinite" />
+</polygon>
+<!-- Klicaj — navpična črta -->
+<rect x="57" y="42" width="6" height="26"
+rx="3" fill="#FFFFFF" />
+<!-- Klicaj — pika -->
+<circle cx="60" cy="82" r="4"
+fill="#FFFFFF" />
+</svg>
+
+        <ol>
+            <li>Vračilo knjig v roku 14 dni.</li>
+            <li>Tišina v bralnem prostoru.</li>
+            <li>Uporaba računalnikov samo za študijske namene.</li>
+        </ol>
+    </div>
+
+     <form id="kontaktForm"         
+    novalidate                    
+    aria-describedby="formNavodila"> 
+    <p id="formNavodila">        
+      Polja označena z * so obvezna.
+    </p>                          
+    <label for="name">
+      Ime: <span aria-hidden="true">*</span>
+    </label><br>
+    <input type="text" id="name"
+      name="name"
+      placeholder="Vaše ime"
+      required                       
+      aria-required="true"           
+      aria-describedby="nameNapaka"  
+      autocomplete="given-name">     
+    <span id="nameNapaka"            
+      class="napaka"
+      role="alert"
+      aria-live="assertive"></span>  
+    <br><br>
+    <label for="email">
+      Email: <span aria-hidden="true">*</span> 
+    </label><br>
+    <input type="email" id="email"
+      name="email"
+      placeholder="Vaš email"
+      required                        
+      aria-required="true"            
+      aria-describedby="emailNapaka"  
+      autocomplete="email">           
+    <span id="emailNapaka"            
+      class="napaka"
+      role="alert"
+      aria-live="assertive"></span>   
+    <br><br>
+    <label for="message">Sporočilo:</label><br>
+    <textarea id="message" name="message"
+      rows="5"
+      placeholder="Vaše sporočilo"></textarea>
+    <br><br>
+    <button type="submit">Pošlji</button>
+  </form>
+</div>
+        <h2>Kontaktirajte nas</h2>
+        <div class="zemljevid-vsebnik">
+<p>
+<strong>Lokacija:</strong>
+Knjižnica Martina Krpana,
+Kongresni trg 12, 1000 Ljubljana
+</p>
+<iframe
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2769.049476247267!2d14.496699376138706!3d46.05011137108952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d60e068e3d3%3A0x953f5729a98315e4!2sCentralna%20tehni%C5%A1ka%20knji%C5%BEnica%20Univerze%20v%20Ljubljani!5e0!3m2!1ssl!2ssi!4v1775568502756!5m2!1ssl!2ssi"
+width="100%"
+height="350"
+style="border:0;"
+allowfullscreen=""
+loading="lazy"
+referrerpolicy="no-referrer-when-downgrade"
+title="Lokacija knjižnice na zemljevidu"
+aria-label="Interaktivni zemljevid: Knjižnica Martina Krpana">
+</iframe>
+</div>
+
+        <form>
+            <label for="name">Ime:</label><br>
+            <input type="text" id="name" name="name" placeholder="Vaše ime"><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" placeholder="Vaš email"><br><br>
+            <label for="message">Sporočilo:</label><br>
+            <textarea id="message" name="message" rows="5" placeholder="Vaše sporočilo"></textarea><br><br>
+            <button type="submit">Pošlji</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2024 Knjižnica. Vse pravice pridržane.</p>
+        <p>Odpiralni čas: Pon-Pet 9:00-20:00, Sob 9:00-14:00</p>
+        <p>
+            <a href="#">Facebook</a> |
+            <a href="#">Twitter</a> |
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+
+    <button id="topBtn"
+        aria-label="Pomakni se na vrh strani"> <!-- NOVO -->
+        Na vrh
+    </button>
+
+    <script>
+        const menuButton = document.querySelector('.menu-button');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        menuButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            dropdownContent.classList.toggle('show');
+            const isOpen = dropdownContent.classList.contains('show')
+            menuButton.setAttribute('aria-expanded', isOpen);
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!dropdownContent.contains(event.target) && !menuButton.contains(event.target)) {
+                dropdownContent.classList.remove('show');
+            }
+        });
+
+        document.querySelectorAll('.dropdown-content a').forEach(link => {
+            link.addEventListener('click', () => {
+                dropdownContent.classList.remove('show');
+            });
+        });
+    </script>
+    <script src="novice.js"></script>
+    <script src="script.js"></script>
+    <script src="cobiss.js"></script>
+    <script src="knjiznica.js"></script>
+    <script src="vsebina.js"></script> 
+</body>
+</html>
